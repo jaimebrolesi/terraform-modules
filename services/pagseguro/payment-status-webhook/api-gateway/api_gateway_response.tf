@@ -10,6 +10,8 @@ resource "aws_api_gateway_method_response" "http400" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 400
+
+  depends_on = [aws_api_gateway_method_response.http200]
 }
 
 resource "aws_api_gateway_method_response" "http403" {
@@ -17,6 +19,8 @@ resource "aws_api_gateway_method_response" "http403" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 403
+
+  depends_on = [aws_api_gateway_method_response.http400]
 }
 
 resource "aws_api_gateway_method_response" "http404" {
@@ -24,6 +28,8 @@ resource "aws_api_gateway_method_response" "http404" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 404
+
+  depends_on = [aws_api_gateway_method_response.http403]
 }
 
 resource "aws_api_gateway_method_response" "http415" {
@@ -31,6 +37,8 @@ resource "aws_api_gateway_method_response" "http415" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 415
+
+  depends_on = [aws_api_gateway_method_response.http404]
 }
 
 resource "aws_api_gateway_method_response" "http500" {
@@ -38,6 +46,8 @@ resource "aws_api_gateway_method_response" "http500" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 500
+
+  depends_on = [aws_api_gateway_method_response.http415]
 }
 
 resource "aws_api_gateway_integration_response" "http2xx" {
