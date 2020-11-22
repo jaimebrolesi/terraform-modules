@@ -3,6 +3,8 @@ resource "aws_api_gateway_method_response" "http200" {
   resource_id = aws_api_gateway_resource.notifications_path.id
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 200
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_method_response" "http400" {
@@ -11,7 +13,10 @@ resource "aws_api_gateway_method_response" "http400" {
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 400
 
-  depends_on = [aws_api_gateway_method_response.http200]
+  depends_on = [
+    aws_api_gateway_method_response.http200,
+    aws_api_gateway_integration.api_gateway_integration
+  ]
 }
 
 resource "aws_api_gateway_method_response" "http403" {
@@ -20,7 +25,9 @@ resource "aws_api_gateway_method_response" "http403" {
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 403
 
-  depends_on = [aws_api_gateway_method_response.http400]
+  depends_on = [aws_api_gateway_method_response.http400,
+    aws_api_gateway_integration.api_gateway_integration
+  ]
 }
 
 resource "aws_api_gateway_method_response" "http404" {
@@ -29,7 +36,8 @@ resource "aws_api_gateway_method_response" "http404" {
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 404
 
-  depends_on = [aws_api_gateway_method_response.http403]
+  depends_on = [aws_api_gateway_method_response.http403,
+  aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_method_response" "http415" {
@@ -38,7 +46,8 @@ resource "aws_api_gateway_method_response" "http415" {
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 415
 
-  depends_on = [aws_api_gateway_method_response.http404]
+  depends_on = [aws_api_gateway_method_response.http404,
+  aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_method_response" "http500" {
@@ -47,7 +56,9 @@ resource "aws_api_gateway_method_response" "http500" {
   http_method = aws_api_gateway_method.api_gateway_method.http_method
   status_code = 500
 
-  depends_on = [aws_api_gateway_method_response.http415]
+  depends_on = [aws_api_gateway_method_response.http415,
+    aws_api_gateway_integration.api_gateway_integration
+  ]
 }
 
 resource "aws_api_gateway_integration_response" "http2xx" {
@@ -57,10 +68,7 @@ resource "aws_api_gateway_integration_response" "http2xx" {
   status_code       = aws_api_gateway_method_response.http200.status_code
   selection_pattern = "^2[0-9][0-9]"
 
-  depends_on = [
-    aws_api_gateway_method_response.http200,
-    aws_api_gateway_integration.api_gateway_integration
-  ]
+  depends_on = [aws_api_gateway_method_response.http200]
 }
 
 resource "aws_api_gateway_integration_response" "http400" {
@@ -71,8 +79,7 @@ resource "aws_api_gateway_integration_response" "http400" {
   selection_pattern = aws_api_gateway_method_response.http400.status_code
 
   depends_on = [
-    aws_api_gateway_method_response.http400,
-    aws_api_gateway_integration.api_gateway_integration
+    aws_api_gateway_method_response.http400
   ]
 }
 
@@ -84,8 +91,7 @@ resource "aws_api_gateway_integration_response" "http403" {
   selection_pattern = aws_api_gateway_method_response.http403.status_code
 
   depends_on = [
-    aws_api_gateway_method_response.http403,
-    aws_api_gateway_integration.api_gateway_integration
+    aws_api_gateway_method_response.http403
   ]
 }
 
@@ -97,8 +103,7 @@ resource "aws_api_gateway_integration_response" "http404" {
   selection_pattern = aws_api_gateway_method_response.http404.status_code
 
   depends_on = [
-    aws_api_gateway_method_response.http404,
-    aws_api_gateway_integration.api_gateway_integration
+    aws_api_gateway_method_response.http404
   ]
 }
 
@@ -110,8 +115,7 @@ resource "aws_api_gateway_integration_response" "http415" {
   selection_pattern = aws_api_gateway_method_response.http415.status_code
 
   depends_on = [
-    aws_api_gateway_method_response.http415,
-    aws_api_gateway_integration.api_gateway_integration
+    aws_api_gateway_method_response.http415
   ]
 }
 
@@ -123,7 +127,6 @@ resource "aws_api_gateway_integration_response" "http5xx" {
   selection_pattern = "^5[0-9][0-9]"
 
   depends_on = [
-    aws_api_gateway_method_response.http500,
-    aws_api_gateway_integration.api_gateway_integration
+    aws_api_gateway_method_response.http500
   ]
 }
