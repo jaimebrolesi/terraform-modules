@@ -9,7 +9,7 @@ resource "aws_api_gateway_integration" "api_gateway_integration" {
   type                    = "AWS"
   integration_http_method = "POST"
   credentials             = var.iam_role_arn
-  uri                     = "arn:aws:apigateway:${var.region}:sqs:path/${var.queue_name}"
+  uri                     = "arn:aws:apigateway:${var.aws_region}:sqs:path/${var.queue_name}"
   passthrough_behavior    = "NEVER"
 
   request_parameters = {
