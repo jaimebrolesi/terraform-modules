@@ -19,7 +19,4 @@ resource "aws_api_gateway_integration" "api_gateway_integration" {
   request_templates = {
     "application/x-www-form-urlencoded" = data.template_file.urlencoded_template.rendered
   }
-
-  depends_on = [aws_api_gateway_method.api_gateway_method]
-
 }
