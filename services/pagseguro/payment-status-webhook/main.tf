@@ -17,7 +17,7 @@ module "simple_queue" {
 # ------------------------------------------------------------------------------
 
 data "template_file" "policy_template" {
-  template = file("templates/api-gateway-permission.json")
+  template = file("${path.module}/templates/api-gateway-permission.json")
 
   vars = {
     sqs_arn = module.simple_queue.queue_arn
@@ -25,7 +25,7 @@ data "template_file" "policy_template" {
 }
 
 data "template_file" "assume_role_template" {
-  template = file("templates/api-gateway-assume-role.json")
+  template = file("${path.module}/templates/api-gateway-assume-role.json")
 }
 
 # ------------------------------------------------------------------------------
