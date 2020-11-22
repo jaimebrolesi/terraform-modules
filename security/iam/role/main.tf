@@ -7,7 +7,7 @@ terraform {
 # ------------------------------------------------------------------------------
 
 resource "aws_iam_role" "role" {
-  name               = upper("${var.name}_ROLE")
+  name               = upper("${var.name}Role")
   assume_role_policy = var.assume_role_template
 }
 
@@ -16,7 +16,7 @@ resource "aws_iam_role" "role" {
 # ------------------------------------------------------------------------------
 
 resource "aws_iam_policy" "policy" {
-  name   = upper("${var.name}_POLICY")
+  name   = upper("${var.name}Policy")
   policy = var.policy_template
 }
 
