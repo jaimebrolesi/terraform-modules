@@ -45,3 +45,9 @@ variable "elb_port" {
   type        = number
   default     = 80
 }
+
+variable "image_id" {
+  description = "The image of EC2 Instances to be deployed (e.g. ami-0c3c87b7d583d618f)"
+  type        = string
+  default = "ami-0c3c87b7d583d618f"
+}
