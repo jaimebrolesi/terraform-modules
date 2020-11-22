@@ -14,10 +14,11 @@ module "simple_queue" {
 
 # ------------------------------------------------------------------------------
 # LOAD IAM POLICY TEMPLATE AND ASSUME ROLE TEMPLATE
+# CREATE THE IAM ROLE MODULE ENABLING PERMISSION sqs:SendMessage FOR API GATEWAY
 # ------------------------------------------------------------------------------
 
 data "template_file" "policy_template" {
-  template = file("${path.module}/templates/api-gateway-permission.json")
+  template = file("${path.module}/policies/api-gateway-permission.json")
 
   vars = {
     sqs_arn = module.simple_queue.queue_arn
@@ -25,12 +26,8 @@ data "template_file" "policy_template" {
 }
 
 data "template_file" "assume_role_template" {
-  template = file("${path.module}/templates/api-gateway-assume-role.json")
+  template = file("${path.module}/policies/api-gateway-assume-role.json")
 }
-
-# ------------------------------------------------------------------------------
-# CREATE THE IAM ROLE MODULE TO ENABLE sqs:SendMessage FOR API GATEWAY
-# ------------------------------------------------------------------------------
 
 module "iam_role" {
   source = "../../../security/iam/role"
@@ -38,4 +35,16 @@ module "iam_role" {
   name                 = var.iam_role_name
   policy_template      = data.template_file.policy_template.rendered
   assume_role_template = data.template_file.assume_role_template.rendered
+}
+
+module "api_gateway" {
+  source = "api-gateway"
+
+  name         = var.api_gateway_name
+  description  = var.api_gateway_description
+  iam_role_arn = module.iam_role.iam_role_arn
+  queue_name   = module.simple_queue.queue_name
+  aws_region   = var.aws_region
+
+  depends_on = [module.iam_role.attach_policy_role]
 }

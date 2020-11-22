@@ -10,23 +10,23 @@
 # REQUIRED PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "queue_name" {
-  description = "The name to use for the queue resources"
-  type        = string
-}
-
-variable "iam_role_name" {
-  description = "The name to use for the iam role resources"
-  type        = string
-}
-
-variable "api_gateway_name" {
+variable "name" {
   description = "The name to use for the api gateway resources"
   type        = string
 }
 
-variable "api_gateway_description" {
+variable "description" {
   description = "The description to use for the api gateway resources"
+  type        = string
+}
+
+variable "iam_role_arn" {
+  description = "The iam role arn to use for the api gateway integration resources"
+  type        = string
+}
+
+variable "queue_name" {
+  description = "The name of the queue to use for the api gateway integration resources"
   type        = string
 }
 
