@@ -14,3 +14,8 @@ variable "queue_name" {
   description = "The name to use for the queue resources"
   type        = string
 }
+
+variable "iam_role_name" {
+  description = "The name to use for the iam role resources"
+  type        = string
+}
