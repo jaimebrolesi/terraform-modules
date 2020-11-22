@@ -46,6 +46,8 @@ resource "aws_api_gateway_integration_response" "http2xx" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http200.status_code
   selection_pattern = "^2[0-9][0-9]"
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_integration_response" "http400" {
@@ -54,6 +56,8 @@ resource "aws_api_gateway_integration_response" "http400" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http400.status_code
   selection_pattern = aws_api_gateway_method_response.http400.status_code
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_integration_response" "http403" {
@@ -62,6 +66,8 @@ resource "aws_api_gateway_integration_response" "http403" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http403.status_code
   selection_pattern = aws_api_gateway_method_response.http403.status_code
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_integration_response" "http404" {
@@ -70,6 +76,8 @@ resource "aws_api_gateway_integration_response" "http404" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http404.status_code
   selection_pattern = aws_api_gateway_method_response.http404.status_code
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_integration_response" "http415" {
@@ -78,6 +86,8 @@ resource "aws_api_gateway_integration_response" "http415" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http415.status_code
   selection_pattern = aws_api_gateway_method_response.http415.status_code
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
 resource "aws_api_gateway_integration_response" "http5xx" {
@@ -86,4 +96,6 @@ resource "aws_api_gateway_integration_response" "http5xx" {
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
   status_code       = aws_api_gateway_method_response.http500.status_code
   selection_pattern = "^5[0-9][0-9]"
+
+  depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
