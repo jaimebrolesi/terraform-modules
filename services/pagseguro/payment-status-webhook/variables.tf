@@ -33,5 +33,9 @@ variable "api_gateway_description" {
 variable "aws_region" {
   description = "The aws region to use for the api gateway integration resources"
   type        = string
-  default     = "sa-east-1"
+}
+
+variable "environment" {
+  description = "The environment to use for the api gateway deployment resources (e.g. Should be stage or prod)"
+  type        = string
 }
