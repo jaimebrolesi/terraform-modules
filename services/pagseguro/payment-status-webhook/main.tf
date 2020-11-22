@@ -38,7 +38,7 @@ module "iam_role" {
 }
 
 module "api_gateway" {
-  source = "api-gateway"
+  source = "./api-gateway"
 
   name         = var.api_gateway_name
   description  = var.api_gateway_description
