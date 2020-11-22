@@ -3,29 +3,12 @@ terraform {
 }
 
 # ------------------------------------------------------------------------------
-# LOAD ASSUME ROLE TEMPLATE
-# ------------------------------------------------------------------------------
-
-data "template_file" "assume_role_template" {
-  template = file(var.assume_role_template)
-}
-
-# ------------------------------------------------------------------------------
 # CREATE THE IAM ROLE
 # ------------------------------------------------------------------------------
 
 resource "aws_iam_role" "role" {
   name               = upper("${var.name}_ROLE")
-  assume_role_policy = data.template_file.assume_role_template.rendered
-}
-
-# ------------------------------------------------------------------------------
-# LOAD IAM POLICY TEMPLATE
-# ------------------------------------------------------------------------------
-
-data "template_file" "policy_template" {
-  template = file(var.policy_template)
-  vars     = var.policy_template_args
+  assume_role_policy = var.assume_role_template
 }
 
 # ------------------------------------------------------------------------------
@@ -34,7 +17,7 @@ data "template_file" "policy_template" {
 
 resource "aws_iam_policy" "policy" {
   name   = upper("${var.name}_POLICY")
-  policy = data.template_file.policy_template.rendered
+  policy = var.policy_template
 }
 
 # ------------------------------------------------------------------------------

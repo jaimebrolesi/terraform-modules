@@ -29,11 +29,3 @@ variable "assume_role_template" {
   type        = string
   default     = null
 }
-
-variable "policy_template_args" {
-  description = "The arguments to use for the policy template"
-  type        = map
-  default     = null
-}
-
-
