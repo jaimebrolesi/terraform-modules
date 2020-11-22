@@ -46,6 +46,4 @@ module "api_gateway" {
   queue_name   = module.simple_queue.queue_name
   aws_region   = var.aws_region
   environment  = var.environment
-
-  depends_on = [module.iam_role.attach_policy_role]
 }
