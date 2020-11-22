@@ -12,7 +12,7 @@ terraform {
   backend "s3" {
     bucket         = "terraform.smartapi"
     key            = "global/s3/terraform.tfstate"
-    region         = var.region
+    region         = "sa-east-1"
     dynamodb_table = "terraform-smartapi-locks"
     encrypt        = true
   }
@@ -23,7 +23,7 @@ terraform {
 # ------------------------------------------------------------------------------
 
 provider "aws" {
-  region = var.region
+  region = "sa-east-1"
 }
 
 # ------------------------------------------------------------------------------
