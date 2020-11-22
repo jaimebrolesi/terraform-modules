@@ -20,11 +20,11 @@ module "iam_role" {
   source = "../../../security/iam/role"
 
   name            = var.iam_role_name
-  policy_template = file("templates/api-gateway-permission.json")
+  policy_template = "templates/api-gateway-permission.json"
 
   policy_template_args = {
     sqs_arn = module.simple_queue.queue_arn
   }
 
-  assume_role_template = file("templates/api-gateway-assume-role.json")
+  assume_role_template = "templates/api-gateway-assume-role.json"
 }
