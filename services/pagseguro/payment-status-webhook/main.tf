@@ -37,6 +37,10 @@ module "iam_role" {
   assume_role_template = data.template_file.assume_role_template.rendered
 }
 
+# ------------------------------------------------------------------------------
+# CREATE THE API GATEWAY MODULE
+# ------------------------------------------------------------------------------
+
 module "api_gateway" {
   source = "./api-gateway"
 
