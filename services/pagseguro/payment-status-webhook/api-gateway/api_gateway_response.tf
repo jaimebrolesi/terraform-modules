@@ -9,7 +9,7 @@ resource "aws_api_gateway_method_response" "method_response" {
   depends_on = [aws_api_gateway_integration.api_gateway_integration]
 }
 
-resource "aws_api_gateway_integration_response" "http2xx" {
+resource "aws_api_gateway_integration_response" "integration_response" {
   for_each = var.response_mapping
 
   rest_api_id       = aws_api_gateway_rest_api.api_gateway.id
