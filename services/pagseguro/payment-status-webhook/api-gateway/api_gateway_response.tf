@@ -15,6 +15,6 @@ resource "aws_api_gateway_integration_response" "integration_response" {
   rest_api_id       = aws_api_gateway_rest_api.api_gateway.id
   resource_id       = aws_api_gateway_resource.notifications_path.id
   http_method       = aws_api_gateway_method.api_gateway_method.http_method
-  status_code       = values(aws_api_gateway_method_response.method_response)[each.key].status_code
+  status_code       = aws_api_gateway_method_response.method_response[each.key].status_code
   selection_pattern = each.value
 }
