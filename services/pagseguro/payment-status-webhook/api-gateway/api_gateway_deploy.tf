@@ -14,11 +14,6 @@ resource "aws_api_gateway_deployment" "api_gateway_deploy" {
 
   depends_on = [
     aws_api_gateway_integration.api_gateway_integration,
-    aws_api_gateway_integration_response.http2xx,
-    aws_api_gateway_integration_response.http400,
-    aws_api_gateway_integration_response.http403,
-    aws_api_gateway_integration_response.http404,
-    aws_api_gateway_integration_response.http415,
-    aws_api_gateway_integration_response.http5xx,
+    aws_api_gateway_integration_response.method_response
   ]
 }
