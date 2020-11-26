@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 0.13.5"
+}
+
 # ------------------------------------------------------------------------------
 # CREATE THE API GATEWAY
 # ------------------------------------------------------------------------------
@@ -55,6 +59,10 @@ resource "aws_api_gateway_method" "api_gateway_method" {
 
 data "template_file" "urlencoded_template" {
   template = file("${path.module}/templates/mapping-templates.vtl")
+
+  vars = {
+    queue_body_class = var.queue_body_class
+  }
 }
 
 data "aws_region" "current" {}

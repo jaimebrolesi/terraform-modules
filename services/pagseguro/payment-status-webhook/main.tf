@@ -44,9 +44,10 @@ module "iam_role" {
 module "api_gateway" {
   source = "./api-gateway"
 
-  name         = var.api_gateway_name
-  description  = var.api_gateway_description
-  iam_role_arn = module.iam_role.iam_role_arn
-  queue_name   = module.simple_queue.queue_name
-  environment  = var.environment
+  name             = var.api_gateway_name
+  description      = var.api_gateway_description
+  iam_role_arn     = module.iam_role.iam_role_arn
+  queue_name       = module.simple_queue.queue_name
+  queue_body_class = var.queue_body_class
+  environment      = var.environment
 }

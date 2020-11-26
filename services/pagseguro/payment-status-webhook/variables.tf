@@ -15,6 +15,11 @@ variable "queue_name" {
   type        = string
 }
 
+variable "queue_body_class" {
+  description = "The absolute class name of the queue message body to be converted into Java class"
+  type        = string
+}
+
 variable "iam_role_name" {
   description = "The name to use for the iam role resources"
   type        = string

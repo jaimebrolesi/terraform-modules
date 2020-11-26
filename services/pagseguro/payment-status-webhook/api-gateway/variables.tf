@@ -30,6 +30,11 @@ variable "queue_name" {
   type        = string
 }
 
+variable "queue_body_class" {
+  description = "The absolute class name of the queue message body to be converted into Java class"
+  type        = string
+}
+
 variable "environment" {
   description = "The environment to use for the api gateway deployment resources (e.g. Should be stage or prod)"
   type        = string
